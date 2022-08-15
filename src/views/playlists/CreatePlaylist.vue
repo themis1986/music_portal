@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <h4>Creat New Playlist</h4>
+    <h4>Create New Playlist</h4>
     <input type="text" required placeholder="Playlist title" v-model="title" />
     <textarea
       required
@@ -26,9 +26,13 @@ export default {
     const file = ref(null);
     const fileError = ref(null);
 
-    const handleSubmit = () => {
+    const { url, filePath, uploadImage } = useStorage();
+
+    const handleSubmit = async () => {
       if (file.value) {
-        console.log(title.value, description.value, file.value);
+        // console.log(title.value, description.value, file.value);
+        const response = await uploadImage(file.value);
+        console.log("image uploaded, url:", url);
       }
     };
 
