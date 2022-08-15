@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png" alt="logo" />
       <h1><router-link :to="{ name: 'Home' }">Music Portal</router-link></h1>
       <div class="links">
-        <button>Logout</button>
+        <button @click="handleLogout">Logout</button>
         <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
         <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
       </div>
@@ -13,9 +13,23 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import useLogout from "../composables/useLogout";
+
 export default {
   setup() {
-    return {};
+    const router = useRouter();
+    const { logout, error, isPending } = useLogout();
+
+    const handleLogout = async () => {
+      await logout();
+      if (!error.value) {
+        console.log("User logged out");
+        router.push({ name: "Login" });
+      }
+    };
+
+    return { handleLogout, error, isPending };
   },
 };
 </script>
@@ -50,7 +64,7 @@ button {
 
 img {
   max-height: 100px;
-  background: #999;
+  background: rgb(235, 212, 85);
   border-radius: 50%;
 }
 </style>
