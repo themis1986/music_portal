@@ -30,13 +30,14 @@ export default {
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  background: #999;
+  background: rgb(238, 238, 238);
   margin: 16px 0;
   height: 140px;
   transition: all ease 0.2s;
 }
 .single:hover {
   box-shadow: 1px 2px 3px rgba(50, 50, 50, 0.05);
+  background: rgb(255, 254, 254);
   transform: scale(1.02);
   transition: all ease 0.2s;
 }
