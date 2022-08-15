@@ -49,7 +49,7 @@ export default {
           coverUrl: url.value,
           imageFilePath: filePath.value,
           songs: [],
-          createAt: timestamp(),
+          createdAt: timestamp(),
         });
         isPending.value = false;
         if (!error.value) {

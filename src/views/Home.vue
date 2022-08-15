@@ -1,12 +1,22 @@
 <template>
   <div class="home">
-    <p>Home Page</p>
+    <div v-if="error" class="error">Could not fetch the data</div>
+    <div v-if="documents">
+      <div v-for="doc in documents" :key="doc.id">{{ doc.title }}</div>
+    </div>
   </div>
 </template>
 
 <script>
+import getCollection from "../composables/getCollection";
+
 export default {
   name: "Home",
   components: {},
+  setup() {
+    const { documents, error } = getCollection("playlists");
+    console.log(documents.value);
+    return { error, documents };
+  },
 };
 </script>
