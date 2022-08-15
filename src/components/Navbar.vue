@@ -11,6 +11,7 @@
           <router-link :to="{ name: 'UserPlaylists' }"
             >My Playlists</router-link
           >
+          <span>Hi there, {{ user.displayName }}</span>
           <button @click="handleLogout">Logout</button>
         </div>
         <div v-else>
@@ -82,5 +83,40 @@ img {
   max-height: 100px;
   background: rgb(235, 212, 85);
   border-radius: 50%;
+}
+span {
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid #eee;
+  position: relative;
+}
+span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -6px;
+  height: 5px;
+  width: 5px;
+  border-radius: 1000px;
+  background-color: rgb(86, 248, 86);
+  z-index: 10;
+  animation: online 2s ease-in-out infinite;
+}
+
+@keyframes online {
+  0% {
+    background-color: rgb(86, 248, 86);
+    transform: scale(0.5);
+  }
+  50% {
+    background-color: rgb(76, 192, 76);
+    transform: scale(1);
+  }
+  100% {
+    background-color: rgb(86, 248, 86);
+    transform: scale(0.5);
+  }
 }
 </style>
