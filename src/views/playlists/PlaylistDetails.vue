@@ -14,6 +14,7 @@
     <!-- Song list -->
     <div class="song-list">
       <p>song list here</p>
+      <AddSong v-if="ownership" :playlist="playlist" />
     </div>
   </div>
 </template>
@@ -25,28 +26,27 @@ import useStorage from "@/composables/useStorage";
 import getUser from "@/composables/getUser";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import AddSong from "@/components/AddSong.vue";
 
 export default {
   props: ["id"],
+  components: { AddSong },
   setup(props) {
     const router = useRouter();
     const { document: playlist, error } = getDocument("playlists", props.id);
     const { user } = getUser();
     const { deleteDoc } = useDocument("playlists", props.id);
     const { deleteImage } = useStorage();
-
     const ownership = computed(() => {
       return (
         playlist.value && user.value && user.value.uid === playlist.value.userId
       );
     });
-
     const handleDelete = async () => {
       await deleteImage(playlist.value.imageFilePath);
       await deleteDoc();
       router.push({ name: "Home" });
     };
-
     return { playlist, error, ownership, handleDelete };
   },
 };
