@@ -11,7 +11,7 @@ const getCollection = (collection) => {
 
   const unsubscribe = collectionRef.onSnapshot(
     (snap) => {
-      console.log("snapshot");
+      // console.log("snapshot");
 
       let results = [];
       snap.docs.forEach((doc) => {
