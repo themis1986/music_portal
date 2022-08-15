@@ -4,9 +4,17 @@
       <img src="@/assets/logo.png" alt="logo" />
       <h1><router-link :to="{ name: 'Home' }">Music Portal</router-link></h1>
       <div class="links">
-        <button @click="handleLogout">Logout</button>
-        <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
-        <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
+        <div v-if="user">
+          <button @click="handleLogout">Logout</button>
+        </div>
+        <div v-else>
+          <router-link v-if="!user" class="btn" :to="{ name: 'Signup' }"
+            >Signup</router-link
+          >
+          <router-link v-if="!user" class="btn" :to="{ name: 'Login' }"
+            >Log in</router-link
+          >
+        </div>
       </div>
     </nav>
   </div>
@@ -15,11 +23,13 @@
 <script>
 import { useRouter } from "vue-router";
 import useLogout from "../composables/useLogout";
+import getUser from "../composables/getUser";
 
 export default {
   setup() {
     const router = useRouter();
     const { logout, error, isPending } = useLogout();
+    const { user } = getUser();
 
     const handleLogout = async () => {
       await logout();
@@ -29,7 +39,7 @@ export default {
       }
     };
 
-    return { handleLogout, error, isPending };
+    return { handleLogout, error, isPending, user };
   },
 };
 </script>
